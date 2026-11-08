@@ -23,42 +23,28 @@ jobs:
     - name: Create resources
       run: |
         mkdir -p src/main/resources/META-INF
-        
-        cat > src/main/resources/pack.mcmeta << 'EOF'
-{
-  "pack": {
-    "description": "Dupe Mod",
-    "pack_format": 15
-  }
-}
-EOF
-        
-        cat > src/main/resources/META-INF/mods.toml << 'EOF'
-modLoader="javafml"
+        echo '{"pack":{"description":"Dupe Mod","pack_format":15}}' > src/main/resources/pack.mcmeta
+        echo 'modLoader="javafml"
 loaderVersion="[47,)"
 license="MIT"
-
 [[mods]]
 modId="dupe_mod"
 version="1.0.0"
 displayName="Dupe Mod"
 description="Dupe Mod for Spooky Time servers"
 authors="You"
-
 [[dependencies.dupe_mod]]
 modId="forge"
 mandatory=true
 versionRange="[47,)"
 ordering="NONE"
 side="BOTH"
-
 [[dependencies.dupe_mod]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.20.1]"
 ordering="NONE"
-side="BOTH"
-EOF
+side="BOTH"' > src/main/resources/META-INF/mods.toml
     
     - name: Build with Gradle
       run: |
