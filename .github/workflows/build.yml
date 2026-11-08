@@ -1,0 +1,72 @@
+name: Build Mod
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    
+    - name: Create resources
+      run: |
+        mkdir -p src/main/resources/META-INF
+        
+        cat > src/main/resources/pack.mcmeta << 'EOF'
+{
+  "pack": {
+    "description": "Dupe Mod",
+    "pack_format": 15
+  }
+}
+EOF
+        
+        cat > src/main/resources/META-INF/mods.toml << 'EOF'
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="dupe_mod"
+version="1.0.0"
+displayName="Dupe Mod"
+description="Dupe Mod for Spooky Time servers"
+authors="You"
+
+[[dependencies.dupe_mod]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.dupe_mod]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
+EOF
+    
+    - name: Build with Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew build
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dupe-mod
+        path: build/libs/*.jar
