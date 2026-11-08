@@ -21,8 +21,8 @@ jobs:
     - name: Create resources
       run: |
         mkdir -p src/main/resources/META-INF
-        printf '{"pack":{"description":"Dupe Mod","pack_format":15}}' > src/main/resources/pack.mcmeta
-        printf 'modLoader="javafml"\nloaderVersion="[47,)"\nlicense="MIT"\n\n[[mods]]\nmodId="dupe_mod"\nversion="1.0.0"\ndisplayName="Dupe Mod"\ndescription="Dupe Mod"\nauthors="You"\n\n[[dependencies.dupe_mod]]\nmodId="forge"\nmandatory=true\nversionRange="[47,)"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.dupe_mod]]\nmodId="minecraft"\nmandatory=true\nversionRange="[1.20.1]"\nordering="NONE"\nside="BOTH"' > src/main/resources/META-INF/mods.toml
+        echo 'eyJwYWNrIjp7ImRlc2NyaXB0aW9uIjoiRHVwZSBNb2QiLCJwYWNrX2Zvcm1hdCI6MTV9fQ==' | base64 -d > src/main/resources/pack.mcmeta
+        echo 'bW9kTG9hZGVyPSJqYXZhZm1sIgpsb2FkZXJWZXJzaW9uPSJbNDcsKSIKbGljZW5zZT0iTUlUIgoKW1ttb2RzXV0KbW9kSWQ9ImR1cGVfbW9kIgp2ZXJzaW9uPSIxLjAuMCIKZGlzcGxheU5hbWU9IkR1cGUgTW9kIgpkZXNjcmlwdGlvbj0iRHVwZSBNb2QiCmF1dGhvcnM9IllvdSIKCltbZGVwZW5kZW5jaWVzLmR1cGVfbW9kXV0KbW9kSWQ9ImZvcmdlIgptYW5kYXRvcnk9dHJ1ZQp2ZXJzaW9uUmFuZ2U9Ils0NywpIgpvcmRlcmluZz0iTk9ORSIKc2lkZT0iQk9USCIKCltbZGVwZW5kZW5jaWVzLmR1cGVfbW9kXV0KbW9kSWQ9Im1pbmVjcmFmdCIKbWFuZGF0b3J5PXRydWUKdmVyc2lvblJhbmdlPSJbMS4yMC4xXSIKb3JkZXJpbmc9Ik5PTkUiCnNpZGU9IkJPVEgi' | base64 -d > src/main/resources/META-INF/mods.toml
     
     - name: Build with Gradle
       run: |
