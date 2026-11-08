@@ -1,8 +1,6 @@
 name: Build Mod
 
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
@@ -23,28 +21,8 @@ jobs:
     - name: Create resources
       run: |
         mkdir -p src/main/resources/META-INF
-        echo '{"pack":{"description":"Dupe Mod","pack_format":15}}' > src/main/resources/pack.mcmeta
-        echo 'modLoader="javafml"
-loaderVersion="[47,)"
-license="MIT"
-[[mods]]
-modId="dupe_mod"
-version="1.0.0"
-displayName="Dupe Mod"
-description="Dupe Mod for Spooky Time servers"
-authors="You"
-[[dependencies.dupe_mod]]
-modId="forge"
-mandatory=true
-versionRange="[47,)"
-ordering="NONE"
-side="BOTH"
-[[dependencies.dupe_mod]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20.1]"
-ordering="NONE"
-side="BOTH"' > src/main/resources/META-INF/mods.toml
+        printf '{"pack":{"description":"Dupe Mod","pack_format":15}}' > src/main/resources/pack.mcmeta
+        printf 'modLoader="javafml"\nloaderVersion="[47,)"\nlicense="MIT"\n\n[[mods]]\nmodId="dupe_mod"\nversion="1.0.0"\ndisplayName="Dupe Mod"\ndescription="Dupe Mod"\nauthors="You"\n\n[[dependencies.dupe_mod]]\nmodId="forge"\nmandatory=true\nversionRange="[47,)"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.dupe_mod]]\nmodId="minecraft"\nmandatory=true\nversionRange="[1.20.1]"\nordering="NONE"\nside="BOTH"' > src/main/resources/META-INF/mods.toml
     
     - name: Build with Gradle
       run: |
